@@ -4,7 +4,7 @@ Censorify is a free and easy-to-use content censoring tool.
 
 # Key Features
 
-⋆ Available on Chrome, Safar and Firefox
+⋆ Available on Chrome, Safari and Firefox
 
 ⋆ Censors english swear words
 
