@@ -1,4 +1,4 @@
-## Censorify Chrome Extension
+# Censorify Chrome Extension
 
 ![Logo](./assets/logo.png)
 
