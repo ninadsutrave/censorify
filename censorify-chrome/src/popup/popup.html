@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CensorIt</title>
+    <link rel="stylesheet" href="./popup.css">
+</head>
+<body>
+    <header class="censor-it-logo">
+        <img src="../assets/logo.png" alt="censor it logo"/>
+        <p class="tagline">Control your browsing content by censoring foul words!</p>
+    </header>
+    <div class="before-login" id="before-login">
+        <form class="set-password-section" id="form1">
+            <input class="password-field" id="password-field-1" placeholder="Enter password" type="password"/>
+            <input type="submit" value="Save" class="save-button" id="save-btn"/>
+        </form>
+    </div>
+    <div class="section2" id="after-login">
+        <form class="locked-section" id="form2">
+            <input class="password-field" id="password-field-2" placeholder="Enter password" type="password"/>
+            <input type="submit" value="Unlock" class="unlock-button" id="submit-btn"/>
+        </form>
+        <main class="options-section">
+            <div class="toggle-menu">
+                <p class="switch-text">Switch On/Off</p>
+                <label class="switch">
+                    <input id="toggle-switch" type="checkbox" disabled/>
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <div class="censor-options" id="censor-options">
+                <p class="censor-options-text">Censor Options</p>
+                <div class="option">
+                      <input type="radio" id="default-radio" name="fav_language" value="default">
+                      <label class="font-size-09" for="html">Default (*)</label>
+                </div>
+                <div class="option">
+                      <input type="radio" id="funny-words-radio" name="fav_language" value="funny words">
+                      <label class="font-size-09" for="css">Funny words</label><br>
+                </div>
+                <div class="option">
+                      <input type="radio" id="custom-placeholder-radio" name="fav_language" value="own placeholder">
+                      <label class="font-size-09" for="javascript">Custom placeholder</label>
+                      <div class="custom-placeholder">
+                        <p class="font-size-09">Enter a character/emoji:</p>
+                        <input class="custom-placeholder-input" id="custom-placeholder-input" type="text" maxlength="2" />
+                      </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer>
+        <p>© <a href="https://ninadsutrave.in" target="_blank" rel="noopener noreferrer">Ninad Sutrave</a> - 2023</p>
+    </footer>
+    <script src="./bundle.js"></script>
+</body>
+</html>
