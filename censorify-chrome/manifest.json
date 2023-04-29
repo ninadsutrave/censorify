@@ -31,7 +31,7 @@
         "96": "./src/assets/icon96.png",
         "128": "./src/assets/icon128.png" 
     },
-    "permissions": ["activeTab","tabs","storage"],
+    "permissions": ["storage"],
     "incognito": "spanning",
     "content_security_policy": {
         "extension_pages": "default-src 'self'"
