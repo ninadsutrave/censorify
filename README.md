@@ -14,7 +14,7 @@ Censorify is a free and easy-to-use content censoring tool.
 
 ⋆ Choose to replace swear words by funny words instead!
 
-⋆ Easy access via shortcut Cmd + Shift + K
+⋆ Easy access via shortcut Ctrl/Cmd + Shift + K
 
 ⋆ Password enabled
 
