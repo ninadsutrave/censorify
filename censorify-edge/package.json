@@ -1,0 +1,36 @@
+{
+  "name": "censorify",
+  "version": "1.0.1",
+  "description": "A chrome extension to censor the webpage's text",
+  "main": "bundle.js",
+  "keywords": [
+    "censor",
+    "foul words",
+    "clean",
+    "profanity"
+  ],
+  "author": {
+    "name": "Ninad Sutrave",
+    "email": "ninadsutrave@gmail.com",
+    "url": "https://ninadsutrave.in"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ninadsutrave/censorify"
+  },
+  "bugs": {
+    "url": "https://github.com/ninadsutrave/censorify/issues",
+    "email": "ninadsutrave@gmail.com"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "bad-words": "^3.0.4"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.233",
+    "@types/node": "^18.16.0",
+    "browserify": "^17.0.0",
+    "tsify": "^5.0.4",
+    "typescript": "^5.0.4"
+  }
+}
