@@ -1,4 +1,5 @@
 censorify-chrome/node_modules/
 censorify-firefox/node_modules/
+censorify-edge/node_modules/
 .DS_Store
 dist/
