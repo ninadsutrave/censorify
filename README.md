@@ -27,13 +27,13 @@ Censorify is a free and easy-to-use content censoring tool.
 
 ## Extension
 
-[Chrome Extension]()
+[Chrome Extension](https://chrome.google.com/webstore/detail/censorify/efchgkadcglilfcdbgpolinhieeabjlc)
 
-[Firefox Extension]()
+[Firefox Extension](https://addons.mozilla.org/en-US/firefox/addon/censorify/)
 
-[Brave Extension]()
+[Brave Extension](https://chrome.google.com/webstore/detail/censorify/efchgkadcglilfcdbgpolinhieeabjlc)
 
-[EdgeExtension]()
+[Edge Extension]() (yet to be verified)
 
 ⭐ this repo, leave a review and rating if you like it (or if it made you laugh xD)!
 
