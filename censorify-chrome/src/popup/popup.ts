@@ -9,6 +9,8 @@ var defaultRadio = document.getElementById('default-radio') as HTMLInputElement;
 var funnyWordsRadio = document.getElementById('funny-words-radio') as HTMLInputElement;
 var customPlaceholderRadio = document.getElementById('custom-placeholder-radio') as HTMLInputElement;
 var customPlaceholderInput = document.getElementById('custom-placeholder-input') as HTMLInputElement;
+var blockListInput = document.getElementById('block-list-input') as HTMLTextAreaElement;
+var allowListInput = document.getElementById('allow-list-input') as HTMLTextAreaElement;
 
 var afterLoginSection = document.getElementById('after-login') as HTMLDivElement;
 var beforeLoginSection = document.getElementById('before-login') as HTMLDivElement;
@@ -145,4 +147,25 @@ customPlaceholderInput.addEventListener("input", () => {
             console.log('Placeholder stored');
         });
     }
+})
+
+const parseWords = (value: string) => {
+    return value.split(/[\s,]+/).map((word) => word.toLowerCase()).filter((word) => word !== "");
+}
+
+chrome.storage.local.get(["blockList", "allowList"]).then((result) => {
+    if(result.blockList) {
+        blockListInput.value = result.blockList.join(', ');
+    }
+    if(result.allowList) {
+        allowListInput.value = result.allowList.join(', ');
+    }
+})
+
+blockListInput.addEventListener("input", () => {
+    chrome.storage.local.set({"blockList": parseWords(blockListInput.value)});
+})
+
+allowListInput.addEventListener("input", () => {
+    chrome.storage.local.set({"allowList": parseWords(allowListInput.value)});
 })

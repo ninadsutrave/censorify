@@ -77,13 +77,11 @@ const censorPage = () => {
   }
 }
 
-browser.storage.local.get("radio").then((result1) => {
-  browser.storage.local.get("placeholder").then((result2) => {
-    browser.storage.local.get("toggle").then((result3) => {
-      radio = result1.radio;
-      placeholder = (result2.placeholder)?result2.placeholder:'';
-      toggle = result3.toggle;
-      censorPage();
-    })
-  })
+browser.storage.local.get(["radio", "placeholder", "toggle", "blockList", "allowList"]).then((result) => {
+  radio = result.radio;
+  placeholder = (result.placeholder)?result.placeholder:'';
+  toggle = result.toggle;
+  if(result.blockList) Filter.addWords(...result.blockList);
+  if(result.allowList) Filter.removeWords(...result.allowList);
+  censorPage();
 })
