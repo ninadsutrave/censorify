@@ -1,8 +1,12 @@
 {
   "name": "censorify",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A chrome extension to censor the webpage's text",
   "main": "bundle.js",
+  "scripts": {
+    "build": "browserify src/content.ts -p [ tsify --noImplicitAny -p src ] -o src/bundle.js && browserify src/popup/popup.ts -p [ tsify --noImplicitAny -p src/popup ] -o src/popup/bundle.js",
+    "package": "npm run build && mkdir -p ../builds && rm -f ../builds/censorify-chrome-$npm_package_version.zip && zip -r ../builds/censorify-chrome-$npm_package_version.zip manifest.json src -x '*.ts' '*tsconfig.json' 'src/data/*' '*.DS_Store'"
+  },
   "keywords": [
     "censor",
     "foul words",
