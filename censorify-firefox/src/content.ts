@@ -4,8 +4,8 @@
 declare const browser: typeof chrome;
 var filter = require('bad-words');
 var funnywords = require('./data/funnywords.js')
-var xpathDocText: string = '//*[not(self::script or self::style)]/text()[normalize-space(.) != ""]';
-var xpathNodeText: string = './/*[not(self::script or self::style)]/text()[normalize-space(.) != ""]';
+var Filter = new filter();
+var skipTags: string[] = ['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEXTAREA', 'INPUT'];
 
 var radio: string;
 var placeholder: string;
@@ -14,77 +14,65 @@ var toggle: string;
 const mutationObserver = () => {
 	var observerConfig = {
     childList: true,
+    characterData: true,
     subtree: true
   };
 
   var observer = new MutationObserver((mutations: MutationRecord[]) => {
     mutations.forEach((mutation: MutationRecord) => {
-      filterUpdatedDOM(mutation);
+      if (mutation.type === 'characterData') {
+        censorText(mutation.target);
+      } else {
+        mutation.addedNodes.forEach((node: Node) => censorText(node));
+      }
     });
   });
 
   observer.observe(document, observerConfig);
 }
 
-const filterUpdatedDOM = (mutation: MutationRecord) => {
-  mutation.addedNodes.forEach((node: any) => {
-    if (!isEditableField(node)) {
-      censorText(xpathNodeText, node);
-    }
-  });
+const isEditableField = (node: Node) => {
+  var parent = node.parentElement;
+  return !parent || parent.isContentEditable || skipTags.includes(parent.tagName);
 }
 
-const isEditableField= (node: any) => { 
-    return node.isContentEditable || (node.parentNode && node.parentNode.isContentEditable) || 
-    (node.tagName && (node.tagName.toLowerCase() == "textarea" || 
-                      node.tagName.toLowerCase() == "input" ||
-                      node.tagName.toLowerCase() == "script" ||
-                      node.tagName.toLowerCase() == "style")
-    );
+const replaceWord = (word: string) => {
+  if(radio === "1") {
+    return funnywords[Math.floor(Math.random()*funnywords.length)];
+  } else if(radio === "2") {
+    return placeholder.repeat(Filter.replaceWord(word).length);
+  }
+  return Filter.replaceWord(word);
 }
 
-const censorText = (xpathExpression: string, node?: any) => {
+const censorTextNode = (textNode: Text) => {
+  if (isEditableField(textNode) || textNode.data.trim() === "") return;
 
-  var Filter = new filter();
+  var content: string = textNode.data
+    .split(Filter.splitRegex)
+    .map((word: string) => Filter.isProfane(word) ? replaceWord(word) : word)
+    .join('');
 
-  node = (typeof node !== 'undefined') ?  node : document;
-  var evalResult: XPathResult = document.evaluate(
-    xpathExpression,
-    node,
-    null,
-    XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE,
-    null
-  );
-
-  for (var i = 0; i < evalResult.snapshotLength; ++i) {
-    var textNode: any = evalResult.snapshotItem(i);
-    var content: string = Filter.clean(textNode.data);
-
-    if(content === textNode.data) continue;
-
-    if(radio === "1") {
-      content = content.replace(/\*+/g, '*');
-      while(true) {
-        var temp = content.replace("*", funnywords[Math.floor(Math.random()*60)]);
-        if(temp === content) break;
-        content = temp;
-      }
-    } else if(radio === "2") {
-      while(true) {
-        var temp = content.replace("*", placeholder);
-        if(temp === content) break;
-        content = temp;
-      }
-    }
+  if(content !== textNode.data) {
     textNode.data = content;
   }
+}
 
+const censorText = (node: Node) => {
+  if (node.nodeType === Node.TEXT_NODE) {
+    censorTextNode(node as Text);
+    return;
+  }
+
+  var walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT);
+  while (walker.nextNode()) {
+    censorTextNode(walker.currentNode as Text);
+  }
 }
 
 const censorPage = () => {
-  console.log(toggle, placeholder, radio);
   if(toggle === "on") {
-    censorText(xpathDocText);
+    censorText(document);
     mutationObserver();
   }
 }
