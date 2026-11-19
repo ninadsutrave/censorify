@@ -59,7 +59,7 @@ To try a build locally:
 2. Tag it: `git tag v1.2.0 && git push origin v1.2.0`
 3. CI builds everything and attaches `censorify-{chrome,edge,firefox,source}-1.2.0.zip` to a GitHub Release. Upload each zip to its store. AMO also asks for the source zip.
 
-Every PR and master build also uploads the zips as workflow artifacts.
+To get the zips without a release, run the CI workflow by hand from the Actions tab. They're uploaded as workflow artifacts.
 
 ## License
 

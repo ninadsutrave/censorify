@@ -1,14 +1,12 @@
 name: CI
 
-# PRs and master: type-check, build and upload the store zips as artifacts.
+# Run by hand from the Actions tab: type-check, build and upload the store zips as artifacts.
 # v* tags: same, then attach the zips to a GitHub Release.
 
 on:
+  workflow_dispatch:
   push:
-    branches: [master]
     tags: ['v*']
-  pull_request:
-    branches: [master]
 
 jobs:
   build:
