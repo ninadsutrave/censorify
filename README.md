@@ -37,6 +37,30 @@ Censorify is a free and easy-to-use content censoring tool.
 
 ⭐ this repo, leave a review and rating if you like it (or if it made you laugh xD)!
 
+## Development
+
+One codebase builds for every browser. `dist/chromium` is used for Chrome, Brave and Edge, and `dist/firefox` for Firefox.
+
+```bash
+npm ci
+npm run typecheck
+npm run build      # dist/chromium and dist/firefox
+npm run package    # store zips and a source zip in builds/
+```
+
+To try a build locally:
+
+- Chrome / Brave / Edge: open `chrome://extensions` (or `edge://extensions`), turn on Developer mode, Load unpacked → `dist/chromium`
+- Firefox: open `about:debugging` → This Firefox → Load Temporary Add-on → `dist/firefox/manifest.json`
+
+## Releasing
+
+1. Bump `version` in `manifest.json` and merge to master.
+2. Tag it: `git tag v1.2.0 && git push origin v1.2.0`
+3. CI builds everything and attaches `censorify-{chrome,edge,firefox,source}-1.2.0.zip` to a GitHub Release. Upload each zip to its store. AMO also asks for the source zip.
+
+To get the zips without a release, run the CI workflow by hand from the Actions tab. They're uploaded as workflow artifacts.
+
 ## License
 
 MIT © [Ninad Sutrave](https://ninadsutrave.in)

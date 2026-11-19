@@ -1,0 +1,31 @@
+{
+  "name": "censorify",
+  "private": true,
+  "description": "Browser extension that censors foul words on web pages",
+  "author": {
+    "name": "Ninad Sutrave",
+    "email": "ninadsutrave@gmail.com",
+    "url": "https://ninadsutrave.in"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ninadsutrave/censorify"
+  },
+  "license": "MIT",
+  "scripts": {
+    "typecheck": "tsc",
+    "build": "node scripts/build.mjs",
+    "package": "node scripts/build.mjs --zip",
+    "lint:firefox": "web-ext lint --source-dir dist/firefox"
+  },
+  "dependencies": {
+    "bad-words": "^3.0.4"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.233",
+    "@types/node": "^18.16.0",
+    "esbuild": "^0.28.2",
+    "typescript": "^5.0.4",
+    "web-ext": "^8.10.0"
+  }
+}
