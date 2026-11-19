@@ -1,6 +1,3 @@
-// npx browserify content.ts -p [ tsify --noImplicitAny ] -o bundle.js
-// npx browserify popup.ts -p [ tsify --noImplicitAny ] -o bundle.js
-
 var filter = require('bad-words');
 var funnywords = require('./data/funnywords.js')
 var Filter = new filter();

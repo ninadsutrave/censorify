@@ -1,0 +1,80 @@
+name: CI
+
+# PRs and master: type-check, build and upload the store zips as artifacts.
+# v* tags: same, then attach the zips to a GitHub Release.
+
+on:
+  push:
+    branches: [master]
+    tags: ['v*']
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run typecheck
+
+      - name: Check manifest version matches tag
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          version=$(node -p "require('./manifest.json').version")
+          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
+            echo "manifest.json says $version but the tag is $GITHUB_REF_NAME"
+            exit 1
+          fi
+
+      - run: npm run package
+
+      - run: npm run lint:firefox
+
+      - uses: actions/upload-artifact@v6
+        with:
+          name: censorify-chrome
+          path: builds/censorify-chrome-*.zip
+
+      - uses: actions/upload-artifact@v6
+        with:
+          name: censorify-edge
+          path: builds/censorify-edge-*.zip
+
+      - uses: actions/upload-artifact@v6
+        with:
+          name: censorify-firefox
+          path: builds/censorify-firefox-*.zip
+
+      - uses: actions/upload-artifact@v6
+        with:
+          name: censorify-source
+          path: builds/censorify-source-*.zip
+
+  release:
+    name: Release
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v6
+        with:
+          pattern: censorify-*
+          merge-multiple: true
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: '*.zip'

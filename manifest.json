@@ -2,11 +2,11 @@
     "manifest_version": 3,
     "name": "Censorify",
     "version": "1.1.0",
-    "description": "A chrome extension that censors foul words on a webpage",
+    "description": "Censors foul words on the web pages you visit",
     "content_scripts": [
         {
             "matches": ["<all_urls>"],
-            "js": ["src/bundle.js"],
+            "js": ["content.js"],
             "run_at": "document_start",
             "all_frames": true
         }
@@ -21,19 +21,19 @@
         }
     },
     "action": {
-        "default_popup": "src/popup/popup.html"
+        "default_popup": "popup/popup.html"
     },
-    "icons": { 
-        "16": "src/assets/icon16.png",
-        "32": "src/assets/icon32.png",
-        "48": "src/assets/icon48.png",
-        "64": "src/assets/icon64.png",
-        "96": "src/assets/icon96.png",
-        "128": "src/assets/icon128.png" 
+    "icons": {
+        "16": "assets/icon16.png",
+        "32": "assets/icon32.png",
+        "48": "assets/icon48.png",
+        "64": "assets/icon64.png",
+        "96": "assets/icon96.png",
+        "128": "assets/icon128.png"
     },
     "permissions": ["storage"],
     "incognito": "spanning",
     "content_security_policy": {
         "extension_pages": "default-src 'self'"
-      }
- }
+    }
+}
