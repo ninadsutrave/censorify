@@ -6,7 +6,7 @@
     "content_scripts": [
         {
             "matches": ["<all_urls>"],
-            "js": ["./src/bundle.js"],
+            "js": ["src/bundle.js"],
             "run_at": "document_start",
             "all_frames": true
         }
@@ -21,15 +21,15 @@
         }
     },
     "action": {
-        "default_popup": "./src/popup/popup.html"
+        "default_popup": "src/popup/popup.html"
     },
     "icons": { 
-        "16": "./src/assets/icon16.png",
-        "32": "./src/assets/icon32.png",
-        "48": "./src/assets/icon48.png",
-        "64": "./src/assets/icon64.png",
-        "96": "./src/assets/icon96.png",
-        "128": "./src/assets/icon128.png" 
+        "16": "src/assets/icon16.png",
+        "32": "src/assets/icon32.png",
+        "48": "src/assets/icon48.png",
+        "64": "src/assets/icon64.png",
+        "96": "src/assets/icon96.png",
+        "128": "src/assets/icon128.png" 
     },
     "permissions": ["storage"],
     "incognito": "spanning",
